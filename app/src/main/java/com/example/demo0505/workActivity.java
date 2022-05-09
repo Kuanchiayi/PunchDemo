@@ -13,8 +13,6 @@ public class workActivity extends AppCompatActivity {
     * 有日期時間
     * dialog提醒
     */
-
-    TextView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
