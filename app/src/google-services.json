@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800386354486",
+    "project_id": "punch0505-7529c",
+    "storage_bucket": "punch0505-7529c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800386354486:android:2f34ab8675872f03c27797",
+        "android_client_info": {
+          "package_name": "com.example.demo0505"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800386354486-jh9u1qclmunitl0639ljhh6e4k1i2tsb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf-HUTgwN_mL2hprw9gEKHvdj_SeUk9eQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800386354486-jh9u1qclmunitl0639ljhh6e4k1i2tsb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
