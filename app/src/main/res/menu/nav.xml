@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="首頁"
+        android:id="@+id/home"
+        android:icon="@drawable/round_home_24"
+        />
+    <item
+        android:title="打卡"
+        android:id="@+id/punch"
+        android:icon="@drawable/round_punch_clock_24"
+        />
+    <item
+        android:title="公告"
+        android:id="@+id/Bulletin"
+        android:icon="@drawable/round_notifications_24"
+        />
+    <item
+        android:title="薪水"
+        android:id="@+id/salary"
+        android:icon="@drawable/round_attach_money_24"
+        />
+</menu>
