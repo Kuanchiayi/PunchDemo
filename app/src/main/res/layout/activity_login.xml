@@ -8,8 +8,8 @@
     tools:context=".MainActivity">
     <ImageView
         android:id="@+id/iv_black"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="170dp"
         android:scaleType="centerInside"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:id="@+id/et_pwd"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20sp"/>.
+            android:layout_marginBottom="20sp"/>
     </LinearLayout>
     <TextView
         android:id="@+id/tv_error"
