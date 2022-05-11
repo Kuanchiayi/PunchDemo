@@ -13,7 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="170dp"
         android:scaleType="centerInside"
-        android:src="@color/black" />
+        android:src="#EEEEEE"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:id="@+id/et_AN"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20sp"/>.
+            android:layout_marginBottom="20sp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="密碼:"
-            android:textSize="30dp"/>.
+            android:textSize="30sp"/>.
         <EditText
             android:id="@+id/et_PW"
             android:layout_width="275dp"
@@ -55,7 +55,7 @@
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
             android:text="登入"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textColor="@color/white"
             android:background="@color/black"/>
 </LinearLayout>
