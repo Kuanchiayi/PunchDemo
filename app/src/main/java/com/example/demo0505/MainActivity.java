@@ -22,9 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         setListener();
-
-//        FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = firebaseDB.getReference("");
         iv_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

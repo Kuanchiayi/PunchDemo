@@ -8,9 +8,11 @@
         <entry key="app/src/main/res/drawable/round_notifications_24.xml" value="0.1485" />
         <entry key="app/src/main/res/drawable/round_punch_clock_24.xml" value="0.1485" />
         <entry key="app/src/main/res/layout/activity_boss.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/activity_employee.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.22229970296223955" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23550262451171883" />
         <entry key="app/src/main/res/layout/activity_work.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/fragment_ .xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2128623188405797" />
         <entry key="app/src/main/res/menu/nav.xml" value="0.2421875" />
       </map>

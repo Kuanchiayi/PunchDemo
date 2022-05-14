@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HomeFragment extends Fragment {
+public class B_HomeFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

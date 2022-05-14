@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationBarView;
 
-public class BossActivity extends AppCompatActivity {
+public class EmployeeActivity extends AppCompatActivity {
 
     NavigationBarView navigationBarView;
     @Override
@@ -20,7 +20,7 @@ public class BossActivity extends AppCompatActivity {
 
         initView();
 
-        /*      ButtonNavigationBar     */
+        /*        ButtonNavigationBar       */
         navigationBarView.getMenu().setGroupCheckable(0, false, false);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

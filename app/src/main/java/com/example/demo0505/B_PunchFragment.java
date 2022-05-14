@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BulletinFragment#newInstance} factory method to
+ * Use the {@link B_PunchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BulletinFragment extends Fragment {
+public class B_PunchFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class BulletinFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public BulletinFragment() {
+    public B_PunchFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +34,11 @@ public class BulletinFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BulletinFragment.
+     * @return A new instance of fragment PunchFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BulletinFragment newInstance(String param1, String param2) {
-        BulletinFragment fragment = new BulletinFragment();
+    public static B_PunchFragment newInstance(String param1, String param2) {
+        B_PunchFragment fragment = new B_PunchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +59,6 @@ public class BulletinFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bulletin, container, false);
+        return inflater.inflate(R.layout.fragment_punch, container, false);
     }
 }

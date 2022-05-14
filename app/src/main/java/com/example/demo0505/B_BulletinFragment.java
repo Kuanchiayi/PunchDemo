@@ -8,8 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-public class SalaryFragment extends Fragment {
+public class B_BulletinFragment extends Fragment {
     View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,8 @@ public class SalaryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_salary, container, false);
+
+        view = inflater.inflate(R.layout.fragment_bulletin, container, false);
         return view;
     }
 }
