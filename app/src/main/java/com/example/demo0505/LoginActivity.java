@@ -3,6 +3,9 @@ package com.example.demo0505;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText ed_User, ed_Pwd;
     TextView tv_error;
     Button btn_login;
+    Boolean boss, employee;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,16 +32,43 @@ public class LoginActivity extends AppCompatActivity {
             * 雇主為A開頭 員工Ｂ開頭（大寫）
             * 用isPasswordValid Method來判斷
             */
-            if(!isPasswordValid(ed_Pwd.getText().toString())){
-                tv_error.setText("密碼錯誤");
-            }else{
+//            if(!isPasswordValidBoss(ed_Pwd.getText().toString())){
+////                tv_error.setText("密碼錯誤");
+//                new AlertDialog.Builder(this)
+//                        .setTitle("Alert")
+//                        .setMessage("帳號或密碼錯誤")
+//                        .setPositiveButton("再試一次",
+//                                new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                    }
+//                                })
+//                        .show();
+//            } else if (isPasswordValidBoss(ed_Pwd.getText().toString())) {
+//                Intent intent = new Intent(this, BossActivity.class);
+//                startActivity(intent);
+//            } else if (isPasswordValidEmployee(ed_Pwd.getText().toString())) {
+//                Intent intent = new Intent(this, EmployeeActivity.class);
+//                startActivity(intent);
+//            }
+            if (isPasswordValidBoss(ed_Pwd.getText().toString())) {
                 Intent intent = new Intent(this, BossActivity.class);
                 startActivity(intent);
+            } else if (isPasswordValidEmployee(ed_Pwd.getText().toString())) {
+                Intent intent = new Intent(this, EmployeeActivity.class);
+                startActivity(intent);
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("Alert")
+                        .setMessage("帳號或密碼錯誤")
+                        .setPositiveButton("再試一次",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                        .show();
             }
-
-            /*     登入後跳至雇主畫面    */
-//            ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false);
-
         });
     }
 
@@ -49,7 +80,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /*"isPasswordValid" from "Navigate to the next Fragment" section method goes here */
-    private boolean isPasswordValid(@Nullable String text){
-        return text != null && text.charAt(0) == 'A';
+    private boolean isPasswordValidBoss(@Nullable String text){
+        boss = text != null && text.charAt(0) == 'A';
+        return boss;
+    }
+
+    private boolean isPasswordValidEmployee(String text){
+        employee = text != null && text.charAt(0) == 'B';
+        return employee;
     }
 }
