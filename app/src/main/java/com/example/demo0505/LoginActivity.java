@@ -32,25 +32,6 @@ public class LoginActivity extends AppCompatActivity {
             * 雇主為A開頭 員工Ｂ開頭（大寫）
             * 用isPasswordValid Method來判斷
             */
-//            if(!isPasswordValidBoss(ed_Pwd.getText().toString())){
-////                tv_error.setText("密碼錯誤");
-//                new AlertDialog.Builder(this)
-//                        .setTitle("Alert")
-//                        .setMessage("帳號或密碼錯誤")
-//                        .setPositiveButton("再試一次",
-//                                new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                    }
-//                                })
-//                        .show();
-//            } else if (isPasswordValidBoss(ed_Pwd.getText().toString())) {
-//                Intent intent = new Intent(this, BossActivity.class);
-//                startActivity(intent);
-//            } else if (isPasswordValidEmployee(ed_Pwd.getText().toString())) {
-//                Intent intent = new Intent(this, EmployeeActivity.class);
-//                startActivity(intent);
-//            }
             if (isPasswordValidBoss(ed_Pwd.getText().toString())) {
                 Intent intent = new Intent(this, BossActivity.class);
                 startActivity(intent);
