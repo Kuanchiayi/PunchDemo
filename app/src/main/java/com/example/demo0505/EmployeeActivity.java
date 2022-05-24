@@ -25,26 +25,26 @@ public class EmployeeActivity extends AppCompatActivity {
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                B_HomeFragment homefragment = new B_HomeFragment();
-                B_PunchFragment BPunchFragment = new B_PunchFragment();
-                B_BulletinFragment bulletinFragment = new B_BulletinFragment();
-                B_SalaryFragment BSalaryFragment = new B_SalaryFragment();
+                B_HomeFragment homeFragment = new B_HomeFragment();
+                E_PunchFragment E_PunchFragment = new E_PunchFragment();
+                E_BulletinFragment E_bulletinFragment = new E_BulletinFragment();
+                E_SalaryFragment E_SalaryFragment = new E_SalaryFragment();
                 switch (item.getItemId()) {
                     case R.id.home:
                         setTitle("首頁");
-                        openFragment(homefragment);
+                        openFragment(homeFragment);
                         break;
                     case R.id.punch:
                         setTitle("打卡");
-                        openFragment(BPunchFragment);
+                        openFragment(E_PunchFragment);
                         break;
                     case R.id.Bulletin:
                         setTitle("公告");
-                        openFragment(bulletinFragment);
+                        openFragment(E_bulletinFragment);
                         break;
                     case R.id.salary:
                         setTitle("薪水計算");
-                        openFragment(BSalaryFragment);
+                        openFragment(E_SalaryFragment);
                         break;
                     default:
                         break;

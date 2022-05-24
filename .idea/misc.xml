@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/black_rectangle.xml" value="0.149" />
+        <entry key="app/src/main/res/drawable-v24/green_white_oval.xml" value="0.149" />
+        <entry key="app/src/main/res/drawable-v24/grey_framerectangle.xml" value="0.149" />
+        <entry key="app/src/main/res/drawable-v24/greygreen_green_oval.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/round_attach_money_24.xml" value="0.1485" />
         <entry key="app/src/main/res/drawable/round_home_24.xml" value="0.1485" />
@@ -14,9 +18,14 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23550262451171883" />
         <entry key="app/src/main/res/layout/activity_work.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/fragment_ .xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/layout/fragment_e__bulletin.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/layout/fragment_e__home.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/fragment_e__punch.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/layout/fragment_e__salary.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2128623188405797" />
         <entry key="app/src/main/res/layout/fragment_punch.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/layout/fragment_salary.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/menu/nav.xml" value="0.2421875" />
         <entry key="app/src/main/res/menu/nav_drawer_menu.xml" value="0.19880290722530997" />
       </map>

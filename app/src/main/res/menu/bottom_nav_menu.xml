@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="首頁"
+        android:icon="@drawable/round_home_24"
+        android:id="@+id/icon_home"/>
+    <item android:title="打卡"
+        android:icon="@drawable/round_punch_clock_24"
+        android:id="@+id/icon_punch"/>
+    <item android:title="公告"
+        android:icon="@drawable/round_notifications_24"
+        android:id="@+id/icon_announ1"/>
+</menu>
