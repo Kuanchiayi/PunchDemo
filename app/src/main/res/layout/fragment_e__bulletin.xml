@@ -28,6 +28,56 @@
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_marginTop="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="推播通知"
+            android:gravity="center_horizontal"
+            android:textSize="30sp"/>
+        <TextView
+            android:layout_width="390dp"
+            android:layout_height="285dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="130dp"
+            android:background="@drawable/grey_framerectangle" />
+        <ListView
+            android:id="@+id/diary_list2"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center_horizontal"
+            android:layout_width="380dp"
+            android:layout_height="280dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="450dp"
+            android:text="個人通知"
+            android:textSize="30sp"/>
+        <TextView
+            android:layout_width="390dp"
+            android:layout_height="285dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="500dp"
+            android:background="@drawable/grey_framerectangle" />
+        <ListView
+            android:id="@+id/diary_list3"
+            android:layout_marginTop="370dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center_horizontal"
+            android:layout_width="380dp"
+            android:layout_height="280dp" />
+    </FrameLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
@@ -38,53 +88,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/bottom_nav_menu" />
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:layout_width="390dp"
-            android:layout_height="285dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/grey_framerectangle" />
-        <TextView
-            android:layout_marginTop="80dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="推播通知"
-            android:gravity="center_horizontal"
-            android:textSize="20sp"/>
-        <ListView
-            android:id="@+id/diary_list2"
-            android:layout_marginTop="70dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_horizontal"
-            android:layout_width="380dp"
-            android:layout_height="280dp" />
-        <TextView
-            android:layout_width="390dp"
-            android:layout_height="285dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="365dp"
-            android:background="@drawable/grey_framerectangle" />
-        <TextView
-            android:layout_marginTop="375dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="個人通知"
-            android:gravity="center_horizontal"
-            android:textSize="20sp"/>
-        <ListView
-            android:id="@+id/diary_list3"
-            android:layout_marginTop="370dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_horizontal"
-            android:layout_width="380dp"
-            android:layout_height="280dp" />
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
