@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         iv_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BossActivity.class);
+                Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
                 startActivity(intent);
             }
         });

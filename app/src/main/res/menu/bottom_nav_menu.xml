@@ -6,6 +6,9 @@
     <item android:title="打卡"
         android:icon="@drawable/round_punch_clock_24"
         android:id="@+id/icon_punch"/>
+    <item android:title="薪水計算"
+        android:icon="@drawable/round_attach_money_24"
+        android:id="@+id/salary"/>
     <item android:title="公告"
         android:icon="@drawable/round_notifications_24"
         android:id="@+id/icon_announ1"/>

@@ -38,13 +38,13 @@ public class EmployeeActivity extends AppCompatActivity {
                         setTitle("打卡");
                         openFragment(E_PunchFragment);
                         break;
-                    case R.id.Bulletin:
-                        setTitle("公告");
-                        openFragment(E_bulletinFragment);
-                        break;
                     case R.id.salary:
                         setTitle("薪水計算");
                         openFragment(E_SalaryFragment);
+                        break;
+                    case R.id.Bulletin:
+                        setTitle("公告");
+                        openFragment(E_bulletinFragment);
                         break;
                     default:
                         break;

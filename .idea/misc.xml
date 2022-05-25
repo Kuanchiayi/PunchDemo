@@ -28,9 +28,12 @@
         <entry key="app/src/main/res/layout/fragment_punch.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/fragment_salary.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/grey_rectangle.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/layout/recycler_punch_item.xml" value="0.335" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu_er.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/menu/nav.xml" value="0.2421875" />
         <entry key="app/src/main/res/menu/nav_drawer_menu.xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/menu/nav_drawer_menu_er.xml" value="0.19880290722530997" />
       </map>
     </option>
   </component>

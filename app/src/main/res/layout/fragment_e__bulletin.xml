@@ -51,7 +51,7 @@
             android:background="@drawable/grey_framerectangle" />
         <ListView
             android:id="@+id/diary_list2"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="130dp"
             android:layout_marginStart="20dp"
             android:gravity="center_horizontal"
             android:layout_width="380dp"
@@ -71,7 +71,7 @@
             android:background="@drawable/grey_framerectangle" />
         <ListView
             android:id="@+id/diary_list3"
-            android:layout_marginTop="370dp"
+            android:layout_marginTop="500dp"
             android:layout_marginStart="20dp"
             android:gravity="center_horizontal"
             android:layout_width="380dp"
