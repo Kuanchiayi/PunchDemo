@@ -21,14 +21,25 @@
         android:textSize="13sp"/>
     <TextView
         android:id="@+id/tv_work"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="上班"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@id/tv_id"
+        app:layout_constraintTop_toTopOf="@id/tv_id"
+        app:layout_constraintBottom_toBottomOf="@id/tv_id"/>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="150dp"
-        android:text="上班"
+        android:text="2022/05/22 00:00:00"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/tv_id"
+        app:layout_constraintStart_toEndOf="@id/tv_work"
         app:layout_constraintTop_toTopOf="@id/tv_id"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
