@@ -13,8 +13,8 @@ public class SqlDataBaseHelper extends SQLiteOpenHelper {
     * id = 編號
     */
     private static final String CREATE_Employee = "create table if not exists Employee(ID integer not null primary key, name text, password text not null)";
-    private  static final String CREATE_Bulletin = "create table if not exists Bulletin(id integer primary key, createTime text, content text, ID integer)";
-    private static final String CREATE_Punch = "create table if not exists Punch(id integer primary key, startTime text, endTime text, ID integer)";
+    private  static final String CREATE_Bulletin = "create table if not exists Bulletin(id_bulletin integer primary key autoincrement, createTime text, content text, ID integer)";
+    private static final String CREATE_Punch = "create table if not exists Punch(id_punch integer primary key autoincrement, startTime text, endTime text, ID integer)";
 
 
     public SqlDataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
