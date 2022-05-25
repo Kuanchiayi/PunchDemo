@@ -17,33 +17,29 @@ public class EmployeeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boss);
-
         initView();
-
+        E_HomeFragment homeFragment = new E_HomeFragment();
+        openFragment(homeFragment);
         /*        ButtonNavigationBar       */
         navigationBarView.getMenu().setGroupCheckable(0, false, false);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                B_HomeFragment homeFragment = new B_HomeFragment();
+                E_HomeFragment homeFragment = new E_HomeFragment();
                 E_PunchFragment E_PunchFragment = new E_PunchFragment();
                 E_BulletinFragment E_bulletinFragment = new E_BulletinFragment();
                 E_SalaryFragment E_SalaryFragment = new E_SalaryFragment();
                 switch (item.getItemId()) {
                     case R.id.home:
-                        setTitle("首頁");
                         openFragment(homeFragment);
                         break;
                     case R.id.punch:
-                        setTitle("打卡");
                         openFragment(E_PunchFragment);
                         break;
                     case R.id.salary:
-                        setTitle("薪水計算");
                         openFragment(E_SalaryFragment);
                         break;
                     case R.id.Bulletin:
-                        setTitle("公告");
                         openFragment(E_bulletinFragment);
                         break;
                     default:

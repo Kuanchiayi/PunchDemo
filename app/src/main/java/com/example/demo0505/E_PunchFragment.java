@@ -1,26 +1,34 @@
 package com.example.demo0505;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.net.CacheRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class E_PunchFragment extends Fragment {
@@ -30,9 +38,10 @@ public class E_PunchFragment extends Fragment {
     Button btn_punch;
     RecyclerView recyclerView;
     Adapter adapter;
+    Calendar cal;
 
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
-
+    HashMap<String, String> data;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,20 +62,22 @@ public class E_PunchFragment extends Fragment {
 
         /*改成跳動時間*/
         /*加入資料庫*/
-        Calendar cal = Calendar.getInstance();
+        cal = Calendar.getInstance();
         CharSequence s = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
         time_now.setText(s);
+
 
         btn_punch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (btn_punch.getText().equals("上班打卡")) {
                     btn_punch.setText("下班打卡");
+                    /*跳出dialog詢問是誰*/
+                    onCreateDialog();
                     /*加入上班*/
                     Calendar cal = Calendar.getInstance();
                     CharSequence on_time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
-                    HashMap<String, String> data = new HashMap<>();
-//                    data.put("id", title);
+                    data = new HashMap<>();
                     data.put("work", "上班");
                     data.put("time", String.valueOf(on_time));
                     arrayList.add(data);
@@ -74,8 +85,7 @@ public class E_PunchFragment extends Fragment {
                     btn_punch.setText("上班打卡");
                     Calendar cal = Calendar.getInstance();
                     CharSequence off_time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
-                    HashMap<String, String> data = new HashMap<>();
-//                    data.put("id", title);
+                    data = new HashMap<>();
                     data.put("work", "下班");
                     data.put("time", String.valueOf(off_time));
                     arrayList.add(data);
@@ -94,6 +104,36 @@ public class E_PunchFragment extends Fragment {
         adapter = new Adapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);
     }
+
+    private void onCreateDialog(){
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View view = layoutInflater.inflate(R.layout.ask_id, null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+
+        // 使用setView()方法將佈局顯示到dialog
+        alertDialog.setView(view);
+        EditText userInput = (EditText) view.findViewById(R.id.et_input);
+
+        alertDialog
+                .setTitle("輸入貼文數量：")
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                data.put("id", String.valueOf(userInput.getText()));
+                                arrayList.add(data);
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog1 = alertDialog.create();
+        alertDialog1.show();
+    }
+
     public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
         private Context context;
@@ -112,6 +152,7 @@ public class E_PunchFragment extends Fragment {
                 tv_time = itemsView.findViewById(R.id.tv_time);
             }
         }
+
         @NonNull
         @Override
         public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -122,9 +163,9 @@ public class E_PunchFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
             HashMap<String,String> data = arrayList.get(position);
-//            holder.tv_id.setText(data.get("forumName"));
-              holder.tv_work.setText(data.get("work"));
-              holder.tv_time.setText(data.get("time"));
+            holder.tv_id.setText(data.get("id"));
+            holder.tv_work.setText(data.get("work"));
+            holder.tv_time.setText(data.get("time"));
         }
 
         @Override
