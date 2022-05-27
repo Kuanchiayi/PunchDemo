@@ -38,8 +38,9 @@ import java.util.HashMap;
 public class E_PunchFragment extends Fragment {
 
     View view;
-    TextView time_now;
+    TextView tv_now;
     Button btn_punch;
+    EditText et_id;
     RecyclerView recyclerView;
     Adapter adapter;
     Calendar cal;
@@ -66,9 +67,10 @@ public class E_PunchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /*改成跳動時間*/
-        cal = Calendar.getInstance();
-        CharSequence s = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
-        time_now.setText(s);
+        long sysTime = System.currentTimeMillis();
+        CharSequence sysTimeStr = DateFormat.format("hh:mm:ss", sysTime);
+        tv_now.setText(sysTimeStr);
+        new Thread().start();
 
         /*加入資料庫*/
         SqlDataBaseHelper sqlDataBaseHelper = new SqlDataBaseHelper(getActivity(), "Punch", null, 1);
@@ -79,20 +81,9 @@ public class E_PunchFragment extends Fragment {
             public void onClick(View view) {
                 if (btn_punch.getText().equals("上班打卡")) {
                     btn_punch.setText("下班打卡");
-                    /*跳出dialog詢問是誰*/
-                    onCreateDialog();
-                    /*加入上班*/
-                    Calendar cal = Calendar.getInstance();
-                    CharSequence on_time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
-                    data = new HashMap<>();
-                    data.put("work", "上班");
-                    data.put("time", String.valueOf(on_time));
-                    arrayList.add(data);
-
-                    /*DB*/
-                    ContentValues cv_onDuty = new ContentValues();
-                    cv_onDuty.put("startTime", String.valueOf(on_time));
-                    db.insert("Punch", null, cv_onDuty);
+                    InsertDB(Integer.parseInt(et_id.getText().toString()));
+//                    deleteDb();
+                    queryAll();
                 } else if (btn_punch.getText().equals("下班打卡")) {
                     btn_punch.setText("上班打卡");
                     Calendar cal = Calendar.getInstance();
@@ -103,12 +94,14 @@ public class E_PunchFragment extends Fragment {
                     arrayList.add(data);
                 }
                 adapter.notifyDataSetChanged();
+                finish();
             }
         });
     }
     private void initViews(){
-        time_now = view.findViewById(R.id.tv_now);
+        tv_now = view.findViewById(R.id.tv_now);
         btn_punch = view.findViewById(R.id.btn_punch);
+        et_id = view.findViewById(R.id.et_id);
         recyclerView = view.findViewById(R.id.recyclerView_punch);
         recyclerView = view.findViewById(R.id.recyclerView_punch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -116,36 +109,41 @@ public class E_PunchFragment extends Fragment {
         adapter = new Adapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);
     }
-
-    private void onCreateDialog(){
-        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        View view = layoutInflater.inflate(R.layout.ask_id, null);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-
-        // 使用setView()方法將佈局顯示到dialog
-        alertDialog.setView(view);
-        EditText userInput = (EditText) view.findViewById(R.id.et_input);
-
-        alertDialog
-                .setTitle("輸入貼文數量：")
-                .setCancelable(false)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                data.put("id", String.valueOf(userInput.getText()));
-                                arrayList.add(data);
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog1 = alertDialog.create();
-        alertDialog1.show();
+    private void InsertDB(int enter_id){
+        /*取得日期*/
+        Calendar cal = Calendar.getInstance();
+        CharSequence on_time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
+        /*放到DB*/
+        ContentValues cv = new ContentValues();
+        cv.put("startTime", on_time.toString());
+        cv.put("ID", enter_id);
+        db.insert("Punch", null, cv);
     }
+    private void queryAll(){
+        arrayList.clear();
+        Cursor c = db.query("Punch", null, null, null, null, null, null);
+        while (c.moveToNext()) {
+            data = new HashMap<>();
+            data.put("id", c.getString(2));
+            data.put("work", "上班");
+            data.put("startTime", c.getString(1));
+            arrayList.add(data);
+            Log.e("id", c.getString(2) + "a");
+        }
 
+        c.close();
+        Log.e("arrayList", arrayList.toString() + "a");
+        Log.e("number", arrayList.size() + "a");
+
+    }
+    private void deleteDb(){
+        db.delete("Punch", null, null);
+    }
+    public void finish(){
+        if (db.isOpen()) {
+            db.close();
+        }
+    }
     public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
         private Context context;
@@ -174,18 +172,10 @@ public class E_PunchFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
-            /*DB方法*/
-            Cursor c = db.query("Punch", null, null, null, null, null, null);
-            while (c.moveToNext()) {
-                holder.tv_time.append(c.getString(1));
-                Log.e("test", c.getString(1) + "a");
-            }
-            c.close();
-
-//            HashMap<String,String> data = arrayList.get(position);
-//            holder.tv_id.setText(data.get("id"));
-//            holder.tv_work.setText(data.get("work"));
-//            holder.tv_time.setText(data.get("time"));
+            HashMap<String, String> data = arrayList.get(position);
+            holder.tv_id.setText(data.get("id"));
+            holder.tv_work.setText(data.get("work"));
+            holder.tv_time.setText(data.get("startTime"));
         }
 
         @Override
@@ -194,53 +184,33 @@ public class E_PunchFragment extends Fragment {
         }
     }
 
-//    /*查詢by id*/
-//    private void queryByid(int id){
-////        tv_result.setText("enter_id" + id);
-//        /*不指定欄位為null*/
-//        Cursor c2 = db.query("Personal", null, "id=?", new String[]{"" + id}, null, null, null);
-//        if (c2.moveToNext()) {
-//            tv_result.setText(c2.getInt(0) + " " + c2.getString(1) + " " + c2.getString(2));
-//        } else {
-//            tv_result.setText("result");
-//        }
-//    }
+    class Thread extends java.lang.Thread{
+        public void run(){
+            do {
+                try {
+                    //延遲兩秒後更新
+                    Thread.sleep(1000);
+                    Message msg = new Message();
+                    msg.what = 1;
 
-//    /*查詢Personal全部*/
-//    private void queryAll(){
-//        Cursor c = db.query("Punch", null, null, null, null, null, null);
-//        int count = c.getCount();
-//        tv_result.setText("Record Count" + count + "\n");
-//
-//        while (c.moveToNext()) {
-//            tv_result.append(c.getInt(0) + " " + c.getString(1) + " " + c.getString(2) + "\n");
-//        }
-//
-//        c.close();
-//    }
-
-//    private void InsertDB(){
-//        for (int i=0; i<names.length; i++) {
-//            ContentValues cv = new ContentValues();
-//            cv.put("name", names[i]);
-//            cv.put("address", address[i]);
-//            db.insert("Personal", null, cv);
-//        }
-//    }
-
-//    private void updateDb(){
-//        ContentValues cv1 = new ContentValues();
-//        cv1.put("address", "Mars");
-//        db.update("Personal", cv1, "name=?", new String[]{"Eric"});
-//    }
-//
-//    private void deleteDb(){
-//        db.delete("Personal", "id=? and name=?", new String[]{"6", "Oscar"});
-//    }
-
-    public void finish(){
-        if (db.isOpen()) {
-            db.close();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch (msg.what) {
+                                case 1:
+                                    long sysTime = System.currentTimeMillis();
+                                    CharSequence sysTimeStr = DateFormat.format("hh:mm:ss", sysTime);
+                                    tv_now.setText(sysTimeStr);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
         }
     }
 }
