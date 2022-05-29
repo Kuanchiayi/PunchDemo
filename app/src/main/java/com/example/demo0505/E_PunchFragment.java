@@ -1,5 +1,7 @@
 package com.example.demo0505;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,7 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.net.CacheRequest;
@@ -35,16 +39,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class E_PunchFragment extends Fragment {
+public class E_PunchFragment extends Fragment implements CompoundButton.OnCheckedChangeListener{
 
     View view;
     TextView tv_now;
     Button btn_punch;
-    EditText et_id;
+    Calendar cal;
     RecyclerView recyclerView;
     Adapter adapter;
-    Calendar cal;
     SQLiteDatabase db;
+    Switch aSwitch;
 
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     HashMap<String, String> data;
@@ -66,42 +70,47 @@ public class E_PunchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*改成跳動時間*/
+        /*顯示時間*/
         long sysTime = System.currentTimeMillis();
         CharSequence sysTimeStr = DateFormat.format("hh:mm:ss", sysTime);
         tv_now.setText(sysTimeStr);
         new Thread().start();
 
         /*加入資料庫*/
-        SqlDataBaseHelper sqlDataBaseHelper = new SqlDataBaseHelper(getActivity(), "Punch", null, 1);
-        db = sqlDataBaseHelper.getReadableDatabase();
+        DBHelper helper = new DBHelper(getActivity(), "PunchCard", null, 1);
+        db = helper.getReadableDatabase();
+        /* switch設定  */
+        aSwitch.setOnCheckedChangeListener(this);
+
+        /*  進畫面時顯示之前打卡記錄  */
+        query_on_All();
 
         btn_punch.setOnClickListener(new View.OnClickListener() {
+            final Calendar cal = Calendar.getInstance();
+            final CharSequence on_time_date = DateFormat.format("yyyy-MM-dd", cal.getTime());
+            final CharSequence on_time_time = DateFormat.format("kk:mm:ss", cal.getTime());
             @Override
             public void onClick(View view) {
                 if (btn_punch.getText().equals("上班打卡")) {
-                    btn_punch.setText("下班打卡");
-                    InsertDB(Integer.parseInt(et_id.getText().toString()));
+//                    btn_punch.setText("下班打卡");
+                    InsertDB_onDuty(on_time_date.toString(), on_time_time.toString());
 //                    deleteDb();
-                    queryAll();
+                    query_on_All();
                 } else if (btn_punch.getText().equals("下班打卡")) {
-                    btn_punch.setText("上班打卡");
-                    Calendar cal = Calendar.getInstance();
-                    CharSequence off_time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
-                    data = new HashMap<>();
-                    data.put("work", "下班");
-                    data.put("time", String.valueOf(off_time));
-                    arrayList.add(data);
+//                    btn_punch.setText("上班打卡");
+
+                    InsertDB_onDuty(on_time_date.toString(), on_time_time.toString());
+                    query_on_All();
                 }
-                adapter.notifyDataSetChanged();
-                finish();
+//                adapter.notifyDataSetChanged();
             }
         });
     }
     private void initViews(){
         tv_now = view.findViewById(R.id.tv_now);
         btn_punch = view.findViewById(R.id.btn_punch);
-        et_id = view.findViewById(R.id.et_id);
+        aSwitch = view.findViewById(R.id.switch1);
+
         recyclerView = view.findViewById(R.id.recyclerView_punch);
         recyclerView = view.findViewById(R.id.recyclerView_punch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -109,31 +118,40 @@ public class E_PunchFragment extends Fragment {
         adapter = new Adapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);
     }
-    private void InsertDB(int enter_id){
-        /*取得日期*/
-        Calendar cal = Calendar.getInstance();
-        CharSequence on_time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
-        /*放到DB*/
+    private void InsertDB_onDuty(String on_time_date, String on_time_time){
+        String workStatus = String.valueOf(btn_punch.getText().subSequence(0,2));
+
         ContentValues cv = new ContentValues();
-        cv.put("startTime", on_time.toString());
-        cv.put("ID", enter_id);
+        cv.put("Date", on_time_date);
+        cv.put("work", workStatus);
+//        cv.put("Time", "上班" + on_time_time);
+        cv.put("Time", on_time_time);
+        cv.put("ID", 1);
         db.insert("Punch", null, cv);
     }
-    private void queryAll(){
+    private void InsertDB_offDuty(String off_time_date, String off_time_time){
+        ContentValues cv = new ContentValues();
+        cv.put("Date", off_time_date);
+        cv.put("Time", "下班" + off_time_time);
+        cv.put("ID", 1);
+        db.insert("Punch", null, cv);
+    }
+
+    private void query_on_All(){
         arrayList.clear();
         Cursor c = db.query("Punch", null, null, null, null, null, null);
-        while (c.moveToNext()) {
+        while(c.moveToNext()) {
             data = new HashMap<>();
-            data.put("id", c.getString(2));
-            data.put("work", "上班");
-            data.put("startTime", c.getString(1));
+            data.put("Date", c.getString(1));
+            data.put("work", c.getString(3));
+            data.put("Time", c.getString(2));
+            data.put("ID", String.valueOf(c.getInt(4)));
             arrayList.add(data);
-            Log.e("id", c.getString(2) + "a");
         }
-
         c.close();
         Log.e("arrayList", arrayList.toString() + "a");
-        Log.e("number", arrayList.size() + "a");
+        Log.e("size", String.valueOf(arrayList.size()));
+        adapter.notifyDataSetChanged();
 
     }
     private void deleteDb(){
@@ -144,6 +162,16 @@ public class E_PunchFragment extends Fragment {
             db.close();
         }
     }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(compoundButton.isChecked()) {
+            btn_punch.setText("上班打卡");
+        } else {
+            btn_punch.setText("下班打卡");
+        }
+    }
+
     public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
         private Context context;
@@ -154,12 +182,13 @@ public class E_PunchFragment extends Fragment {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder{
-            TextView tv_id, tv_time, tv_work;
+            TextView tv_id, tv_date, tv_time, tv_work;
             public ViewHolder(View itemsView){
                 super(itemsView);
                 tv_id = itemsView.findViewById(R.id.tv_id);
-                tv_work = itemsView.findViewById(R.id.tv_work);
+                tv_date = itemsView.findViewById(R.id.tv_date);
                 tv_time = itemsView.findViewById(R.id.tv_time);
+                tv_work = itemsView.findViewById(R.id.tv_work);
             }
         }
 
@@ -172,10 +201,11 @@ public class E_PunchFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
-            HashMap<String, String> data = arrayList.get(position);
-            holder.tv_id.setText(data.get("id"));
+            HashMap<String,String> data = arrayList.get(position);
+            holder.tv_id.setText(data.get("ID"));
+            holder.tv_date.setText(data.get("Date"));
+            holder.tv_time.setText(data.get("Time"));
             holder.tv_work.setText(data.get("work"));
-            holder.tv_time.setText(data.get("startTime"));
         }
 
         @Override

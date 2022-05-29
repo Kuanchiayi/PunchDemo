@@ -41,22 +41,34 @@
             android:gravity="center_horizontal"
             android:textSize="30sp"
             android:text="現在時間"/>
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:switchMinWidth="60dp"
+            android:text="上下班"
+            android:textOn="上班"
+            android:textOff="下班"
+            android:textSize="20sp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
         <Button
             android:id="@+id/btn_punch"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="130dp"
             android:layout_gravity="center_horizontal"
-            android:textColor="#FFFFFF"
             android:background="@drawable/black_rectangle"
+            android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:text="上班打卡"
+            android:text="打卡"
             android:textStyle="bold"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_punch"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:layout_marginTop="100dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="150dp"
             android:layout_marginBottom="60dp"
             android:layout_gravity="bottom"/>
     </FrameLayout>
