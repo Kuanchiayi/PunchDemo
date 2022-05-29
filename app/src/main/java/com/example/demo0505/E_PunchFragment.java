@@ -2,6 +2,7 @@ package com.example.demo0505;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +12,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -77,7 +77,7 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
         new Thread().start();
 
         /*加入資料庫*/
-        DBHelper helper = new DBHelper(getActivity(), "PunchCard", null, 1);
+        DBaseHelper helper = new DBaseHelper(getActivity(), "PunchCard", null, 2);
         db = helper.getReadableDatabase();
         /* switch設定  */
         aSwitch.setOnCheckedChangeListener(this);
@@ -91,18 +91,21 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
             final CharSequence on_time_time = DateFormat.format("kk:mm:ss", cal.getTime());
             @Override
             public void onClick(View view) {
-                if (btn_punch.getText().equals("上班打卡")) {
-//                    btn_punch.setText("下班打卡");
-                    InsertDB_onDuty(on_time_date.toString(), on_time_time.toString());
-//                    deleteDb();
-                    query_on_All();
-                } else if (btn_punch.getText().equals("下班打卡")) {
-//                    btn_punch.setText("上班打卡");
+//                deleteDb();
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("確認打卡")
+                            .setPositiveButton("確定",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            InsertDB_onDuty(on_time_date.toString(), on_time_time.toString());
+                                            query_on_All();
+                                        }
+                                    })
+                            .setNegativeButton("cancel", (dialogInterface, i) -> {
 
-                    InsertDB_onDuty(on_time_date.toString(), on_time_time.toString());
-                    query_on_All();
-                }
-//                adapter.notifyDataSetChanged();
+                            })
+                            .show();
             }
         });
     }
@@ -119,28 +122,25 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
         recyclerView.setAdapter(adapter);
     }
     private void InsertDB_onDuty(String on_time_date, String on_time_time){
+        /*抓取上下班狀態*/
         String workStatus = String.valueOf(btn_punch.getText().subSequence(0,2));
+        Cursor c_id = db.query("Employee",null, "ID",null , null, null, null);
+        while (c_id.moveToNext()) {
+            Log.e("id", c_id.getString(0)+"a");
+        }
 
         ContentValues cv = new ContentValues();
         cv.put("Date", on_time_date);
         cv.put("work", workStatus);
-//        cv.put("Time", "上班" + on_time_time);
         cv.put("Time", on_time_time);
         cv.put("ID", 1);
         db.insert("Punch", null, cv);
     }
-    private void InsertDB_offDuty(String off_time_date, String off_time_time){
-        ContentValues cv = new ContentValues();
-        cv.put("Date", off_time_date);
-        cv.put("Time", "下班" + off_time_time);
-        cv.put("ID", 1);
-        db.insert("Punch", null, cv);
-    }
-
     private void query_on_All(){
         arrayList.clear();
+
         Cursor c = db.query("Punch", null, null, null, null, null, null);
-        while(c.moveToNext()) {
+        while (c.moveToNext()) {
             data = new HashMap<>();
             data.put("Date", c.getString(1));
             data.put("work", c.getString(3));

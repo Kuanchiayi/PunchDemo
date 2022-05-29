@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -19,12 +21,17 @@ public class LoginActivity extends AppCompatActivity {
     TextView tv_error;
     Button btn_login;
     Boolean boss, employee;
+    SQLiteDatabase db;
+
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         initViews();
+        DBaseHelper helper = new DBaseHelper(this, "PunchCard", null, 2);
+        db = helper.getReadableDatabase();
 
         btn_login.setOnClickListener(view -> {
             /*
@@ -36,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, BossActivity.class);
                 startActivity(intent);
             } else if (isPasswordValidEmployee(ed_Pwd.getText().toString())) {
+                /*儲存ID&pwd*/
+                InsertDB_ID();
+
                 Intent intent = new Intent(this, EmployeeActivity.class);
                 startActivity(intent);
             } else {
@@ -69,5 +79,13 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isPasswordValidEmployee(String text){
         employee = text != null && text.charAt(0) == 'B';
         return employee;
+    }
+
+    private void InsertDB_ID(){
+        id = String.valueOf(ed_User.getText());
+        ContentValues cv = new ContentValues();
+        cv.put("ID", id);
+        cv.put("password", ed_Pwd.getText().toString());
+        db.insert("Employee", null, cv);
     }
 }
