@@ -11,7 +11,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="100dp"
         android:scaleType="centerInside"
         android:src="@drawable/black"/>
     <LinearLayout
@@ -28,7 +28,7 @@
             android:textSize="30sp"
             android:layout_marginRight="40dp"
             android:textColor="@color/white"
-            android:background="@color/theme"/>
+            android:background="@drawable/btn_boss_employee"/>
         <Button
             android:id="@+id/btn_employee"
             android:layout_width="125dp"
@@ -36,6 +36,6 @@
             android:text="員工"
             android:textSize="30sp"
             android:textColor="@color/white"
-            android:background="@color/theme"/>
+            android:background="@drawable/btn_boss_employee"/>
     </LinearLayout>
 </LinearLayout>

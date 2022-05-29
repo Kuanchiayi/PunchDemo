@@ -9,8 +9,10 @@
         <entry key="app/src/main/res/drawable-v24/grey_rectangle.xml" value="0.149" />
         <entry key="app/src/main/res/drawable-v24/greygreen_green_oval.xml" value="0.149" />
         <entry key="app/src/main/res/drawable-v24/greygreen_lightgreen_rectangle.xml" value="0.149" />
+        <entry key="app/src/main/res/drawable/btn_boss_employee.xml" value="0.204" />
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/ondutystyle.xml" value="0.155" />
+        <entry key="app/src/main/res/drawable/round_add_24.xml" value="0.204" />
         <entry key="app/src/main/res/drawable/round_attach_money_24.xml" value="0.1485" />
         <entry key="app/src/main/res/drawable/round_home_24.xml" value="0.1485" />
         <entry key="app/src/main/res/drawable/round_notifications_24.xml" value="0.1485" />
@@ -22,6 +24,7 @@
         <entry key="app/src/main/res/layout/activity_work.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/ask_id.xml" value="0.20394736842105263" />
         <entry key="app/src/main/res/layout/fragment_ .xml" value="0.19880290722530997" />
+        <entry key="app/src/main/res/layout/fragment_bulletin.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_e__bulletin.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/fragment_e__home.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/fragment_e__punch.xml" value="0.19880290722530997" />
@@ -31,6 +34,7 @@
         <entry key="app/src/main/res/layout/fragment_salary.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/grey_rectangle.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/layout/recycler_punch_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/recycler_salary_items.xml" value="0.259963768115942" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/menu/bottom_nav_menu_er.xml" value="0.19880290722530997" />
         <entry key="app/src/main/res/menu/nav.xml" value="0.2421875" />

@@ -18,21 +18,17 @@ public class EmployeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boss);
         initView();
-        E_HomeFragment homeFragment = new E_HomeFragment();
-        openFragment(homeFragment);
+        E_PunchFragment E_PunchFragment = new E_PunchFragment();
+        openFragment(E_PunchFragment);
         /*        ButtonNavigationBar       */
         navigationBarView.getMenu().setGroupCheckable(0, false, false);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                E_HomeFragment homeFragment = new E_HomeFragment();
                 E_PunchFragment E_PunchFragment = new E_PunchFragment();
                 E_BulletinFragment E_bulletinFragment = new E_BulletinFragment();
                 E_SalaryFragment E_SalaryFragment = new E_SalaryFragment();
                 switch (item.getItemId()) {
-                    case R.id.home:
-                        openFragment(homeFragment);
-                        break;
                     case R.id.punch:
                         openFragment(E_PunchFragment);
                         break;

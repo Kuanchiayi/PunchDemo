@@ -86,9 +86,6 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
         query_on_All();
 
         btn_punch.setOnClickListener(new View.OnClickListener() {
-            final Calendar cal = Calendar.getInstance();
-            final CharSequence on_time_date = DateFormat.format("yyyy-MM-dd", cal.getTime());
-            final CharSequence on_time_time = DateFormat.format("kk:mm:ss", cal.getTime());
             @Override
             public void onClick(View view) {
 //                deleteDb();
@@ -98,6 +95,9 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
+                                            final Calendar cal = Calendar.getInstance();
+                                            final CharSequence on_time_date = DateFormat.format("yyyy-MM-dd", cal.getTime());
+                                            final CharSequence on_time_time = DateFormat.format("kk:mm:ss", cal.getTime());
                                             InsertDB_onDuty(on_time_date.toString(), on_time_time.toString());
                                             query_on_All();
                                         }

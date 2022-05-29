@@ -8,13 +8,17 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     EditText ed_User, ed_Pwd;
@@ -24,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     SQLiteDatabase db;
 
     String id;
+    ArrayList<String> id_list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
             } else if (isPasswordValidEmployee(ed_Pwd.getText().toString())) {
                 /*儲存ID&pwd*/
                 InsertDB_ID();
-
                 Intent intent = new Intent(this, EmployeeActivity.class);
                 startActivity(intent);
             } else {
@@ -82,10 +86,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void InsertDB_ID(){
-        id = String.valueOf(ed_User.getText());
-        ContentValues cv = new ContentValues();
-        cv.put("ID", id);
-        cv.put("password", ed_Pwd.getText().toString());
-        db.insert("Employee", null, cv);
+        /* 放id到DB 格式：1 (假設員工為個位數)*/
+        /* 放pwd到DB */
+
+        Cursor c = db.query("Employee", null, null, null, null, null, null);
+        while (c.moveToNext()) {
+            id_list.add(c.getString(0));
+        }
+        id = String.valueOf(ed_User.getText().subSequence(ed_User.getText().length()-1, ed_User.getText().length()));
+        if (id_list.contains(id)) {
+            ContentValues cv = new ContentValues();
+            cv.put("ID", id);
+            cv.put("password", ed_Pwd.getText().toString());
+            db.insert("Employee", null, cv);
+            Log.e("id_list", id_list+"a");
+        }
     }
 }

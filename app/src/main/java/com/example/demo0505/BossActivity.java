@@ -19,21 +19,18 @@ public class BossActivity extends AppCompatActivity {
         setContentView(R.layout.activity_boss);
 
         initView();
+        E_PunchFragment E_PunchFragment = new E_PunchFragment();
+        openFragment(E_PunchFragment);
 
         /*      ButtonNavigationBar     */
         navigationBarView.getMenu().setGroupCheckable(0, false, false);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                B_HomeFragment homefragment = new B_HomeFragment();
                 B_PunchFragment BPunchFragment = new B_PunchFragment();
                 B_BulletinFragment bulletinFragment = new B_BulletinFragment();
                 B_SalaryFragment BSalaryFragment = new B_SalaryFragment();
                 switch (item.getItemId()) {
-                    case R.id.home:
-                        setTitle("首頁");
-                        openFragment(homefragment);
-                        break;
                     case R.id.punch:
                         setTitle("打卡");
                         openFragment(BPunchFragment);
