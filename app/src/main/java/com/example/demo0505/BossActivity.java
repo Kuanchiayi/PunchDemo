@@ -19,8 +19,8 @@ public class BossActivity extends AppCompatActivity {
         setContentView(R.layout.activity_boss);
 
         initView();
-        E_PunchFragment E_PunchFragment = new E_PunchFragment();
-        openFragment(E_PunchFragment);
+        B_PunchFragment b_punchFragment = new B_PunchFragment();
+        openFragment(b_punchFragment);
 
         /*      ButtonNavigationBar     */
         navigationBarView.getMenu().setGroupCheckable(0, false, false);
