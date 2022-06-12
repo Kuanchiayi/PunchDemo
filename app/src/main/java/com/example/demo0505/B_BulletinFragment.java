@@ -46,6 +46,11 @@ public class B_BulletinFragment extends Fragment {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        /*
+                                        *
+                                        * 新增公告
+                                        *
+                                        */
                                     }
                                 })
                         .setNegativeButton("cancel", (dialogInterface, i) -> {
