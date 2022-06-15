@@ -49,6 +49,7 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
     Adapter adapter;
     SQLiteDatabase db;
     Switch aSwitch;
+    Thread thread;
 
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     HashMap<String, String> data;
@@ -74,7 +75,7 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
         long sysTime = System.currentTimeMillis();
         CharSequence sysTimeStr = DateFormat.format("hh:mm:ss", sysTime);
         tv_now.setText(sysTimeStr);
-        new Thread().start();
+//        new Thread().start();
 
         /*加入資料庫*/
         DBaseHelper helper = new DBaseHelper(getActivity(), "PunchCard", null, 2);
@@ -97,8 +98,8 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
                                         public void onClick(DialogInterface dialog, int which) {
                                             final Calendar cal = Calendar.getInstance();
                                             final CharSequence on_time_date = DateFormat.format("yyyy-MM-dd", cal.getTime());
-                                            final CharSequence on_time_time = DateFormat.format("kk:mm:ss", cal.getTime());
-                                            InsertDB_onDuty(on_time_date.toString(), on_time_time.toString());
+                                            final CharSequence time = DateFormat.format("kk:mm:ss", cal.getTime());
+                                            InsertDB_onDuty(on_time_date.toString(), time.toString());
                                             query_on_All();
                                         }
                                     })

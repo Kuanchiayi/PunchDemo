@@ -1,26 +1,42 @@
 package com.example.demo0505;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
 public class E_SalaryFragment extends Fragment {
 
     View view;
     SQLiteDatabase db;
+    TextView tv_day, tv_salary;
+
+    ArrayList<HashMap<String,String>> arrayList_all = new ArrayList<>();
+    ArrayList<HashMap<String,String>> arrayList_show = new ArrayList<>();
+    int[] sum = new int[]{};
+    HashMap<String, String> data;
+    HashMap<String, String> check;
+    String Date, time_former, time_latter;
+    Integer time_diff;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +47,7 @@ public class E_SalaryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_e__salary, container, false);
+        initViews();
         return view;
     }
 
@@ -40,49 +57,51 @@ public class E_SalaryFragment extends Fragment {
 
         DBaseHelper helper = new DBaseHelper(getActivity(), "PunchCard", null, 2);
         db = helper.getReadableDatabase();
+        query_on_All();
+        for (int k=0; k<arrayList_all.size(); k+=2) {
+            /*0,2,4...*/
+            time_former = arrayList_all.get(k).get("Time").substring(0,2);
+            /*1,3,5...*/
+            time_latter = arrayList_all.get(k+1).get("Time").substring(0,2);
+            /*calculate*/
+            time_diff = Integer.parseInt(time_latter) - Integer.parseInt(time_former);
+            Log.e("timediff", time_diff + "a");
+            sum[k] = time_diff;
+//            check = new HashMap<>();
+//            check.put("Time_diff", String.valueOf(time_diff));
+//            check.put("Date", arrayList_all.get(k).get("Date"));
+//            arrayList_show.add(check);
+        }
+        /*加總*/
+        Log.e("arrayList_show", arrayList_show + "a");
+        Log.e("sumList", sum.toString() + "a");
 
-
+//        tv_day.setText(String.valueOf(time_diff));
+        int result = 0;
+        for (int i : sum) {
+            result += i;
+        }
+        tv_day.setText(result);
+        tv_salary.setText("2016");
     }
 
-    public class Adapter extends RecyclerView.Adapter<E_SalaryFragment.Adapter.ViewHolder>{
+    private void initViews(){
+        tv_day = view.findViewById(R.id.tv_day);
+        tv_salary = view.findViewById(R.id.tv_salary);
+    }
 
-        private Context context;
-        public ArrayList<HashMap<String,String>> arrayList;
-        public Adapter(Context context, ArrayList<HashMap<String,String>> arrayList) {
-            this.context = context;
-            this.arrayList = arrayList;
+    private void query_on_All(){
+        arrayList_all.clear();
+        Cursor c = db.query("Punch", null, null, null, null, null, null);
+        while (c.moveToNext()) {
+            data = new HashMap<>();
+            data.put("Date", c.getString(1));
+            data.put("work", c.getString(3));
+            data.put("Time", c.getString(2));
+            arrayList_all.add(data);
         }
-
-        class ViewHolder extends RecyclerView.ViewHolder{
-            TextView tv_id, tv_date, tv_time_on, tv_time_off;
-            public ViewHolder(View itemsView){
-                super(itemsView);
-                tv_id = itemsView.findViewById(R.id.tv_id);
-                tv_date = itemsView.findViewById(R.id.tv_date);
-                tv_time_on = itemsView.findViewById(R.id.tv_time);
-                tv_time_off = itemsView.findViewById(R.id.tv_time_off);
-            }
-        }
-
-        @NonNull
-        @Override
-        public E_SalaryFragment.Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.recycler_salary_items, parent, false);
-            return new E_SalaryFragment.Adapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull E_SalaryFragment.Adapter.ViewHolder holder, int position) {
-            HashMap<String,String> data = arrayList.get(position);
-//            holder.tv_id.setText(data.get("ID"));
-            holder.tv_date.setText(data.get("Date"));
-            holder.tv_time_on.setText(data.get("onTime"));
-            holder.tv_time_off.setText(data.get("offTime"));
-        }
-
-        @Override
-        public int getItemCount() {
-            return arrayList.size();
-        }
+        c.close();
+        Log.e("arrayList", arrayList_all.toString() + "a");
+        Log.e("size", String.valueOf(arrayList_all.size()));
     }
 }
