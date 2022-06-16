@@ -31,11 +31,11 @@ public class E_SalaryFragment extends Fragment {
 
     ArrayList<HashMap<String,String>> arrayList_all = new ArrayList<>();
     ArrayList<HashMap<String,String>> arrayList_show = new ArrayList<>();
-    int[] sum = new int[]{};
+    ArrayList<Integer> sum = new ArrayList<>();
     HashMap<String, String> data;
     HashMap<String, String> check;
     String Date, time_former, time_latter;
-    Integer time_diff;
+    Integer time_diff, num;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,16 @@ public class E_SalaryFragment extends Fragment {
 
         DBaseHelper helper = new DBaseHelper(getActivity(), "PunchCard", null, 2);
         db = helper.getReadableDatabase();
+        /*從DB撈資料*/
         query_on_All();
+
+        /*
+                計算時數邏輯
+                方式：
+                前面query_on_all取出資料後，我們把他資料放進一個陣列（arrayList_all）
+                用後一筆減前一筆的方式算出每天的時數
+                再加入sum這個陣列去做加總時數
+        */
         for (int k=0; k<arrayList_all.size(); k+=2) {
             /*0,2,4...*/
             time_former = arrayList_all.get(k).get("Time").substring(0,2);
@@ -66,23 +75,18 @@ public class E_SalaryFragment extends Fragment {
             /*calculate*/
             time_diff = Integer.parseInt(time_latter) - Integer.parseInt(time_former);
             Log.e("timediff", time_diff + "a");
-            sum[k] = time_diff;
-//            check = new HashMap<>();
-//            check.put("Time_diff", String.valueOf(time_diff));
-//            check.put("Date", arrayList_all.get(k).get("Date"));
-//            arrayList_show.add(check);
+
+            sum.add(time_diff);
         }
         /*加總*/
-        Log.e("arrayList_show", arrayList_show + "a");
         Log.e("sumList", sum.toString() + "a");
-
-//        tv_day.setText(String.valueOf(time_diff));
-        int result = 0;
-        for (int i : sum) {
-            result += i;
+        for (int i=0; i<sum.size(); i++) {
+            num = 0;
+            num += sum.get(i);
         }
-        tv_day.setText(result);
-        tv_salary.setText("2016");
+
+        tv_day.setText(String.valueOf(num));
+        tv_salary.setText(String.valueOf(num*168));
     }
 
     private void initViews(){
