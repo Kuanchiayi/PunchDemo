@@ -7,7 +7,7 @@
         />
     <item
         android:title="薪水"
-        android:id="@+id/salary"
+        android:id="@+id/Salary"
         android:icon="@drawable/round_attach_money_24"
         />
     <item

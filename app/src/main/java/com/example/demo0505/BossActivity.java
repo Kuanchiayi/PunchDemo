@@ -39,10 +39,6 @@ public class BossActivity extends AppCompatActivity {
                         setTitle("公告");
                         openFragment(bulletinFragment);
                         break;
-                    case R.id.salary:
-                        setTitle("薪水計算");
-                        openFragment(BSalaryFragment);
-                        break;
                     default:
                         break;
                 }

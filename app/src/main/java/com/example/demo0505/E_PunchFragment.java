@@ -43,8 +43,7 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
 
     View view;
     TextView tv_now;
-    Button btn_punch;
-    Calendar cal;
+    Button btn_punch, btn_delete;
     RecyclerView recyclerView;
     Adapter adapter;
     SQLiteDatabase db;
@@ -109,11 +108,18 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
                             .show();
             }
         });
+
+        btn_delete.setOnClickListener(view1 -> {
+            deleteDb();
+            arrayList.clear();
+            adapter.notifyDataSetChanged();
+        });
     }
     private void initViews(){
         tv_now = view.findViewById(R.id.tv_now);
         btn_punch = view.findViewById(R.id.btn_punch);
         aSwitch = view.findViewById(R.id.switch1);
+        btn_delete = view.findViewById(R.id.btn_delete);
 
         recyclerView = view.findViewById(R.id.recyclerView_punch);
         recyclerView = view.findViewById(R.id.recyclerView_punch);
