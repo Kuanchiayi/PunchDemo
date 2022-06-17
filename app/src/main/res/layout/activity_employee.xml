@@ -6,23 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EmployeeActivity">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
+        android:id="@+id/container_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="首頁"
-                app:titleTextColor="#FFFFFF"
-                android:background="@color/theme"
-                app:menu="@menu/nav_drawer_menu"
-                app:navigationIcon="@drawable/ic_menu"/>
-        </com.google.android.material.appbar.AppBarLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"

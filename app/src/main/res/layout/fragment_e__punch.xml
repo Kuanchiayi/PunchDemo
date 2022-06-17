@@ -21,6 +21,17 @@
                 android:background="@color/theme"
                 app:navigationIcon="@drawable/ic_menu"/>
         </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/delete_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="77dp"
+        android:backgroundTint="@color/grey"
+        app:borderWidth="0dp"
+        app:srcCompat="@drawable/outline_delete_24" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <FrameLayout

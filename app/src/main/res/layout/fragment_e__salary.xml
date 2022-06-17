@@ -18,7 +18,6 @@
                 app:title="薪資計算"
                 app:titleTextColor="#FFFFFF"
                 android:background="@color/theme"
-                app:menu="@menu/nav_drawer_menu"
                 app:navigationIcon="@drawable/ic_menu"/>
         </com.google.android.material.appbar.AppBarLayout>
         <androidx.core.widget.NestedScrollView

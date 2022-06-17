@@ -16,10 +16,12 @@ public class EmployeeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boss);
+        setContentView(R.layout.activity_employee);
+
         initView();
-        E_PunchFragment E_PunchFragment = new E_PunchFragment();
-        openFragment(E_PunchFragment);
+//        E_PunchFragment E_PunchFragment = new E_PunchFragment();
+        openFragment(new E_PunchFragment());
+
         /*        ButtonNavigationBar       */
         navigationBarView.getMenu().setGroupCheckable(0, false, false);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -32,7 +34,7 @@ public class EmployeeActivity extends AppCompatActivity {
                     case R.id.punch:
                         openFragment(E_PunchFragment);
                         break;
-                    case R.id.salary:
+                    case R.id.Salary:
                         openFragment(E_SalaryFragment);
                         break;
                     case R.id.Bulletin:

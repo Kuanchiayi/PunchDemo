@@ -1,7 +1,5 @@
 package com.example.demo0505;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,6 +7,16 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Message;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,26 +25,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
-import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.TextView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.net.CacheRequest;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 public class E_PunchFragment extends Fragment implements CompoundButton.OnCheckedChangeListener{
@@ -48,6 +40,7 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
     Adapter adapter;
     SQLiteDatabase db;
     Switch aSwitch;
+    FloatingActionButton fab;
     Thread thread;
 
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
@@ -88,7 +81,6 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
         btn_punch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                deleteDb();
                     new AlertDialog.Builder(getActivity())
                             .setTitle("確認打卡")
                             .setPositiveButton("確定",
@@ -110,16 +102,36 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
         });
 
         btn_delete.setOnClickListener(view1 -> {
-            deleteDb();
-            arrayList.clear();
-            adapter.notifyDataSetChanged();
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("確認刪除")
+                    .setPositiveButton("確定",
+                            (dialog, which) -> {
+                                deleteDb();
+                                arrayList.clear();
+                                adapter.notifyDataSetChanged();
+                            })
+                    .setNegativeButton("cancel", (dialogInterface, i) -> {
+
+                    })
+                    .show();
         });
+
+
+       fab.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               deleteDb();
+               arrayList.clear();
+               adapter.notifyDataSetChanged();
+           }
+       });
     }
     private void initViews(){
         tv_now = view.findViewById(R.id.tv_now);
         btn_punch = view.findViewById(R.id.btn_punch);
         aSwitch = view.findViewById(R.id.switch1);
         btn_delete = view.findViewById(R.id.btn_delete);
+        fab = view.findViewById(R.id.delete_action_button);
 
         recyclerView = view.findViewById(R.id.recyclerView_punch);
         recyclerView = view.findViewById(R.id.recyclerView_punch);
