@@ -19,7 +19,7 @@
                 app:title="  打卡瀏覽"
                 app:titleTextColor="#FFFFFF"
                 android:background="@color/theme"
-                app:menu="@menu/nav"/>
+                app:navigationIcon="@drawable/ic_menu"/>
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <FrameLayout

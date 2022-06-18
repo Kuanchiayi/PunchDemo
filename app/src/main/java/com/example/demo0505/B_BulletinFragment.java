@@ -31,7 +31,6 @@ import java.util.HashMap;
 
 public class B_BulletinFragment extends Fragment {
     View view;
-    FloatingActionButton fab;
     SQLiteDatabase db;
     Adapter adapter;
     RecyclerView recyclerView;
@@ -63,20 +62,12 @@ public class B_BulletinFragment extends Fragment {
         /*  進畫面時顯示之前打卡記錄  */
         query_on_All();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               onCreateDialog();
-            }
-        });
-
         btn_add.setOnClickListener(view1 -> {
             onCreateDialog();
         });
     }
 
     private void initViews(){
-        fab = view.findViewById(R.id.floating_action_button);
         btn_add = view.findViewById(R.id.btn_add);
 
         recyclerView = view.findViewById(R.id.rcV_boss_bulletin);
@@ -115,32 +106,32 @@ public class B_BulletinFragment extends Fragment {
         alertDialog1.show();
     }
 
+    private void deleteDb(){
+        db.delete("Bulletin", null, null);
+    }
+
     private void InsertDB(String person, String content){
-        Cursor c_id = db.query("Bulletin",null, null,null , null, null, null);
-        while (c_id.moveToNext()) {
-            Log.e("id", c_id.getString(0)+"a");
-        }
+        final Calendar cal = Calendar.getInstance();
+        final CharSequence time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
 
         ContentValues cv = new ContentValues();
         /*  放入發布者  */
-        cv.put("createTime",person);
+        cv.put("ID",person);
         /*   放入內文  */
         cv.put("content", content);
+        /*   放入時間  */
+        cv.put("createTime", String.valueOf(time));
         db.insert("Bulletin", null, cv);
     }
 
     private void query_on_All(){
         arrayList.clear();
-
         Cursor c = db.query("Bulletin", null, null, null, null, null, null);
         while (c.moveToNext()) {
             data = new HashMap<>();
-            final Calendar cal = Calendar.getInstance();
-            final CharSequence time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
-
-            data.put("person", c.getString(1));
+            data.put("person", c.getString(3));
             data.put("content", c.getString(2));
-            data.put("time", String.valueOf(time));
+            data.put("time", c.getString(1));
             arrayList.add(data);
         }
         c.close();

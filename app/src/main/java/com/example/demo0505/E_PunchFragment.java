@@ -67,7 +67,7 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
         long sysTime = System.currentTimeMillis();
         CharSequence sysTimeStr = DateFormat.format("hh:mm:ss", sysTime);
         tv_now.setText(sysTimeStr);
-//        new Thread().start();
+        new Thread().start();
 
         /*加入資料庫*/
         DBaseHelper helper = new DBaseHelper(getActivity(), "PunchCard", null, 2);
@@ -241,6 +241,10 @@ public class E_PunchFragment extends Fragment implements CompoundButton.OnChecke
                     Thread.sleep(1000);
                     Message msg = new Message();
                     msg.what = 1;
+
+                    // here you check the value of getActivity() and break up if needed
+                    if(getActivity() == null)
+                        return;
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override

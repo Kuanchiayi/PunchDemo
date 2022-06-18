@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         setListener();
-        iv_avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
-                startActivity(intent);
-            }
-        });
+//        iv_avatar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     public void initViews(){

@@ -75,9 +75,9 @@ public class E_BulletinFragment extends Fragment {
             final Calendar cal = Calendar.getInstance();
             final CharSequence time = DateFormat.format("yyyy-MM-dd kk:mm:ss", cal.getTime());
 
-            data.put("person", c.getString(1));
+            data.put("person", c.getString(3));
             data.put("content", c.getString(2));
-            data.put("time", String.valueOf(time));
+            data.put("time", c.getString(1));
             arrayList.add(data);
         }
         c.close();
