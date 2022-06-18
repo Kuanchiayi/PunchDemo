@@ -91,7 +91,7 @@ public class E_SalaryFragment extends Fragment {
 
     private void initViews(){
         tv_day = view.findViewById(R.id.tv_day);
-        tv_salary = view.findViewById(R.id.tv_salary);
+        tv_salary = view.findViewById(R.id.tv_salarys);
     }
 
     private void query_on_All(){
